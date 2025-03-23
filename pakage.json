@@ -1,11 +1,11 @@
 {
-    "name": "Midterm Project using Cheapshark API",
+    "name": "cheapshark-api-cli",
     "version": "1.0.0",
     "description": "A Node.js Command Line Interface (CLI) application (cli.js) that interacts with the CheapShark API and a file system-based database. The application's purpose is to allow a user to search and get the detailed information through the CLI, while storing search keywords and selections locally.",
     "author": "Midterm Project Cheapshark API Team",
     "contributors": [
       {
-        "name": "Contributor One"
+        "name": "Adam Dixon"
       },
       {
         "name": "Contributor Two"
@@ -24,13 +24,21 @@
       }
     ],
     "license": "MIT",
-    "main": "",
+    "main": "cli.js",
     "scripts": {
-      "api": "node api.js",
-      "app": "node app.js",
-      "cli": "node cli.js",
-      "db": "node db.js"
+      "start": "node cli.js",
+      "test": "echo \"No tests available\" && exit 1"
     },
-    "dependencies": {},
-    "devDependencies": {}
+    "dependencies": {
+    "inquirer": "^8.2.4",
+    "node-fetch": "^2.6.9",
+    "yargs": "^17.7.1"
+  },
+    "keywords": [
+    "cli",
+    "games",
+    "deals",
+    "cheapshark",
+    "api"
+  ]
   }
