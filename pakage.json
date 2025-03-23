@@ -1,0 +1,36 @@
+{
+    "name": "Midterm Project using Cheapshark API",
+    "version": "1.0.0",
+    "description": "A Node.js Command Line Interface (CLI) application (cli.js) that interacts with the CheapShark API and a file system-based database. The application's purpose is to allow a user to search and get the detailed information through the CLI, while storing search keywords and selections locally.",
+    "author": "Midterm Project Cheapshark API Team",
+    "contributors": [
+      {
+        "name": "Contributor One"
+      },
+      {
+        "name": "Contributor Two"
+      },
+      {
+        "name": "Contributor Three"
+      },
+      {
+        "name": "Contributor Four"
+      },
+      {
+        "name": "Contributor Five"
+      },
+      {
+        "name": "Contributor Six"
+      }
+    ],
+    "license": "MIT",
+    "main": "",
+    "scripts": {
+      "api": "node api.js",
+      "app": "node app.js",
+      "cli": "node cli.js",
+      "db": "node db.js"
+    },
+    "dependencies": {},
+    "devDependencies": {}
+  }
