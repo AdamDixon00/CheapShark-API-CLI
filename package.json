@@ -1,0 +1,52 @@
+{
+  "name": "cheapshark-api-cli",
+  "version": "1.0.0",
+  "description": "A Node.js Command Line Interface (CLI) application (cli.js) that interacts with the CheapShark API and a file system-based database. The application's purpose is to allow a user to search and get the detailed information through the CLI, while storing search keywords and selections locally.",
+  "main": "cli.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdamDixon00/CheapShark-API-CLI.git"
+  },
+  "keywords": [
+    "cli",
+    "games",
+    "deals",
+    "cheapshark",
+    "api"
+  ],
+  "author": "Midterm Project Cheapshark API Team",
+  "contributors": [
+    {
+      "name": "Adam Dixon"
+    },
+    {
+      "name": "Contributor Two"
+    },
+    {
+      "name": "Contributor Three"
+    },
+    {
+      "name": "Contributor Four"
+    },
+    {
+      "name": "Contributor Five"
+    },
+    {
+      "name": "Contributor Six"
+    }
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AdamDixon00/CheapShark-API-CLI/issues"
+  },
+  "homepage": "https://github.com/AdamDixon00/CheapShark-API-CLI#readme",
+  "dependencies": {
+    "axios": "^1.8.4",
+    "cheapshark-api-cli": "file:",
+    "inquirer": "^12.5.0",
+    "yargs": "^17.7.2"
+  }
+}
