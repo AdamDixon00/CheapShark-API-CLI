@@ -32,7 +32,7 @@ export const getGameInfoById = async (id) => {
     try {
         const response = await axios.get(`${BASE_URL}/games`, {
             params: {
-                id: id
+                id: gameID
             }
         });
         return response.data;
