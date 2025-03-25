@@ -1,1 +1,27 @@
-[{"keyword":"Batman: Arkham Asylum Game of the Year Edition","deal":"LNCZ5EicmEMiwyfYVw%2FNdGPos9V7MzoPId2UuwaBqvA%3D","_id":"1742884885427-240"},{"keyword":"Batman: Arkham Knight","deal":"6ooKBSs5XsqUPxaLR4k9S1kG7w7Icd%2F8Ig0%2BliKLfmU%3D","_id":"1742884986213-305"},{"keyword":"LEGO Batman Trilogy","deal":"q1kAXQLJ1godH985RrhaNjv4HoCcdtyUxtlf98qwagE%3D","_id":"1742885004432-904"},{"keyword":"Batman Arkham City GOTY","deal":"F5FpjOn0JkoccAaSyjX4XhpdfNYfotc1xj6%2BppPE%2Fvc%3D","_id":"1742885063129-337"}]
+[
+  {
+    "keyword": "Batman: Arkham Asylum Game of the Year Edition",
+    "deal": "LNCZ5EicmEMiwyfYVw%2FNdGPos9V7MzoPId2UuwaBqvA%3D",
+    "_id": "1742884885427-240"
+  },
+  {
+    "keyword": "Batman: Arkham Knight",
+    "deal": "6ooKBSs5XsqUPxaLR4k9S1kG7w7Icd%2F8Ig0%2BliKLfmU%3D",
+    "_id": "1742884986213-305"
+  },
+  {
+    "keyword": "LEGO Batman Trilogy",
+    "deal": "q1kAXQLJ1godH985RrhaNjv4HoCcdtyUxtlf98qwagE%3D",
+    "_id": "1742885004432-904"
+  },
+  {
+    "keyword": "Batman Arkham City GOTY",
+    "deal": "F5FpjOn0JkoccAaSyjX4XhpdfNYfotc1xj6%2BppPE%2Fvc%3D",
+    "_id": "1742885063129-337"
+  },
+  {
+    "keyword": "Monster Harvest",
+    "deal": "3CjYT2Qt6z4%2BeDTJFLhCjlyP4K%2B1ZCXR2jQ4zQm9qyg%3D",
+    "_id": "1742889109187-40"
+  }
+]

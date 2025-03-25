@@ -23,4 +23,14 @@ yargs(hideBin(process.argv))
             search(args.game);
         }
     )
+    /*TO IMPLEMENT:
+        define command: 'history <keyword / selections>'
+            Add command description
+            Add a builder function
+            Create a handler function to accept either case
+                Call function keywordHistory or selectionHistory
+    */
+    // .command(
+        
+    // )
     .help().argv;

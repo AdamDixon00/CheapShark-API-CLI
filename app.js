@@ -20,7 +20,7 @@ const _displayDeal = async (gameDeal) => {
 
     // displays our message
     console.log(`->${gameDeal.gameInfo.name} can be found at ${store} for $${gameDeal.gameInfo.salePrice}<-`);
-}
+};
 
 // allows user to select the game they are looking for
 const _gameSelection = async (games) => {
@@ -32,7 +32,7 @@ const _gameSelection = async (games) => {
         message: 'Select game to view more info',
         choices: displayGames
     })
-}
+};
 
 // adds entries into db and catches dupes
 const _addToDB = async (dbName, entry) =>
@@ -42,7 +42,7 @@ const _addToDB = async (dbName, entry) =>
     // checks if key is already in db
     if (!(await db.find(dbName, entry)).length)
         await db.insert(dbName, entry);
-}
+};
 
 // searches for and displays games for users selection
 export const search = async (gameName) => {
@@ -75,4 +75,34 @@ export const search = async (gameName) => {
     } catch (error) {
         console.error(error);
     }
-}
+};
+
+export const keywordHistory = async () => {
+    const rawKeyHistory = await db.read('search_history_keyword');
+    const keyHistory = rawKeyHistory.map((entry) =>{
+        return {keyword: `${entry.keyword}`};
+    });
+    _printHistory("Search Keyword History", keyHistory);
+
+    // Implement logic for accepting Select
+    console.log(await select({
+        message: 'Pick an option',
+        choices: {
+            option1: "Exit",
+            option2: "Select a keyword"
+        }
+    }));
+};
+
+// Finish Later
+export const selectionHistory = async () => {
+
+};
+
+const _printHistory = (collection, data) => {
+    console.log(`- - - - - - - - ${collection} - - - - - - - -`);
+    data.forEach((entry) => {
+        console.log(`${entry.keyword}`);
+    });
+    console.log(`- - - - - - - - - - - - - - - - - - - - - - - - -`);
+};
