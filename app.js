@@ -81,6 +81,13 @@ export const search = async (gameName) => {
 export const keywordHistory = async () => {
     // Pulls keyword history and formats it for printing
     const rawKeyHistory = await db.find('search_history_keyword');
+
+    // If no history, inform the user and stop
+    if (!rawKeyHistory.length) {
+        console.log("No keyword history available.");
+        return;
+    }
+
     const keyHistory = rawKeyHistory.map((entry) =>{
         return {name: `${entry.keyword}`, value: `${entry.keyword}`};
     });
