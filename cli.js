@@ -1,7 +1,6 @@
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
-
-import { search } from './app.js';
+import { search, keywordHistory, selectionHistory } from './app.js';
 
 yargs(hideBin(process.argv))
     .usage('$0: Usage <command> [options]')
@@ -33,4 +32,29 @@ yargs(hideBin(process.argv))
     // .command(
         
     // )
+
+    // Define 'history' command
+    .command(
+      'history <type>', // Command structure
+      'view search history (keywords or selections)', // Description
+
+      // Validate the type argument
+      (yargs) => {
+          yargs.positional('type', {
+              describe: 'either "keywords" or "selections"',
+              type: 'string',
+              choices: ['keywords', 'selections'] // restrict input to two valid values
+          });
+      },
+
+      // Handler to call appropriate function based on input
+      (args) => {
+          if (args.type === 'keywords') {
+              keywordHistory();
+          } else if (args.type === 'selections') {
+              selectionHistory();
+          }
+      }
+  )
+
     .help().argv;

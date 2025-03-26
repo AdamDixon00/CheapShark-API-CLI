@@ -85,19 +85,58 @@ export const keywordHistory = async () => {
     _printHistory("Search Keyword History", keyHistory);
 
     // Implement logic for accepting Select
-    console.log(await select({
+    const choice = await select({
         message: 'Pick an option',
-        choices: {
-            option1: "Exit",
-            option2: "Select a keyword"
-        }
-    }));
+        choices: [
+          { name: "Exit", value: null },
+          { name: "Select a keyword", value: "select" }
+        ]
+      });
 };
+
 
 // Finish Later
 export const selectionHistory = async () => {
+    try {
+        // Read all past selections from the local DB
+        const rawSelectionHistory = await db.read('search_history_selection');
 
+        // If no history, inform the user and stop
+        if (!rawSelectionHistory.length) {
+            console.log("No selection history available.");
+            return;
+        }
+
+        // Build prompt choices: Exit first, then game entries
+        const choices = [
+            { name: "Exit", value: null },
+            ...rawSelectionHistory.map((entry) => ({
+                name: `${entry.keyword}`,  // Display game title
+                value: entry.deal          // Value = deal ID for API lookup
+            }))
+        ];
+
+        // Show selection prompt
+        const selectedDealId = await select({
+            message: 'Select a past game to view deal info:',
+            choices: choices
+        });
+
+        // Exit early if user chose "Exit"
+        if (!selectedDealId) {
+            console.log("Exited.");
+            return;
+        }
+
+        // Fetch and display deal details for the selected item
+        const deal = await api.findDeal(selectedDealId);
+        await _displayDeal(deal);
+
+    } catch (error) {
+        console.error("Error accessing selection history:", error.message);
+    }
 };
+
 
 const _printHistory = (collection, data) => {
     console.log(`- - - - - - - - ${collection} - - - - - - - -`);
