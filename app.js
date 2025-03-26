@@ -77,32 +77,49 @@ export const search = async (gameName) => {
     }
 };
 
+// Prints previously-used keywords and allows an option to use one for search
 export const keywordHistory = async () => {
-    const rawKeyHistory = await db.read('search_history_keyword');
+    // Pulls keyword history and formats it for printing
+    const rawKeyHistory = await db.find('search_history_keyword');
     const keyHistory = rawKeyHistory.map((entry) =>{
-        return {keyword: `${entry.keyword}`};
+        return {name: `${entry.keyword}`, value: `${entry.keyword}`};
     });
     _printHistory("Search Keyword History", keyHistory);
 
-    // Implement logic for accepting Select
-    console.log(await select({
+    // Must be named "name:" and "value:" to display choices properly
+    // Prompts user to terminate or perform a search on a recorded keyword from history
+    const willSelect = await select({
         message: 'Pick an option',
-        choices: {
-            option1: "Exit",
-            option2: "Select a keyword"
-        }
-    }));
+        choices: [
+            {name: "Exit", value: false},
+            {name: "Select a keyword", value: true}
+        ]
+    });
+
+    // Prompts user for keyword from history to perform a search 
+    if(willSelect){
+        search(
+            await select({
+                message: 'Pick a keyword',
+                choices: keyHistory
+            })
+        );
+    }
 };
+// COMMIT AND PUSH AFTER ANTHONY
+
 
 // Finish Later
+// Prints previously-used selections and allows an option to use one for search (runs api.findDeal(someGame.deal))
 export const selectionHistory = async () => {
 
 };
 
+// Prints out either Keyword or Selection history based on 'collection' arg
 const _printHistory = (collection, data) => {
     console.log(`- - - - - - - - ${collection} - - - - - - - -`);
     data.forEach((entry) => {
-        console.log(`${entry.keyword}`);
+        console.log(`${entry.name}`);
     });
-    console.log(`- - - - - - - - - - - - - - - - - - - - - - - - -`);
+    console.log(`- - - - - - - - - - - - - - - - - - - - - - - - - - - -`);
 };
