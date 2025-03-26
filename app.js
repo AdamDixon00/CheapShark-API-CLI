@@ -106,13 +106,49 @@ export const keywordHistory = async () => {
         );
     }
 };
-// COMMIT AND PUSH AFTER ANTHONY
 
 
 // Finish Later
 // Prints previously-used selections and allows an option to use one for search (runs api.findDeal(someGame.deal))
 export const selectionHistory = async () => {
+    try {
+        // Read all past selections from the local DB
+        const rawSelectionHistory = await db.read('search_history_selection');
 
+        // If no history, inform the user and stop
+        if (!rawSelectionHistory.length) {
+            console.log("No selection history available.");
+            return;
+        }
+
+        // Build prompt choices: Exit first, then game entries
+        const choices = [
+            { name: "Exit", value: null },
+            ...rawSelectionHistory.map((entry) => ({
+                name: `${entry.keyword}`,  // Display game title
+                value: entry.deal          // Value = deal ID for API lookup
+            }))
+        ];
+
+        // Show selection prompt
+        const selectedDealId = await select({
+            message: 'Select a past game to view deal info:',
+            choices: choices
+        });
+
+        // Exit early if user chose "Exit"
+        if (!selectedDealId) {
+            console.log("Exited.");
+            return;
+        }
+
+        // Fetch and display deal details for the selected item
+        const deal = await api.findDeal(selectedDealId);
+        await _displayDeal(deal);
+
+    } catch (error) {
+        console.error("Error accessing selection history:", error.message);
+    }
 };
 
 // Prints out either Keyword or Selection history based on 'collection' arg

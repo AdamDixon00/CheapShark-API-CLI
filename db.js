@@ -26,6 +26,8 @@ const _read = async (collection) => {
     }
 };
 
+export const read = _read;
+
 /**
  * Inserts a new entry in a collection
  * @param {string} collection - the name of the collection file
