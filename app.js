@@ -35,10 +35,8 @@ const _gameSelection = async (games) => {
 };
 
 // adds entries into db and catches dupes
-const _addToDB = async (dbName, entry) =>
-{
-    const database = await db.find(dbName);
-
+const _addToDB = async (dbName, entry) => {
+    
     // checks if key is already in db
     if (!(await db.find(dbName, entry)).length)
         await db.insert(dbName, entry);

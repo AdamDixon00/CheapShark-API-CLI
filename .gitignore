@@ -17,3 +17,5 @@
 .history
 .ionide
 node_modules/
+mock_database/search_history_keyword.json
+mock_database/search_history_selection.json
