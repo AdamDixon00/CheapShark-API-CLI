@@ -2,7 +2,7 @@ import express from 'express';
 import { searchByKeyword } from '../services/api.js';
 import db from '../services/db.js';
 
-const router = express.Router();
+const router = express.Router(); 
 
 /**
  * GET /games
