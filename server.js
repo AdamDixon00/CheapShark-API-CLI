@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import gameRoutes from './routes/games.js';
+import dealsRouter from './routes/deals.js';
 import db from './services/db.js';
 
 import historyRouter from './routes/history.js';
@@ -19,7 +20,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/games', gameRoutes);
-
+app.use('/api/deals', dealsRouter);
 app.use('/history', historyRouter);
 
 // Error handling middleware

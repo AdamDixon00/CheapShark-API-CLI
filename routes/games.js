@@ -27,12 +27,8 @@ router.get('/', async (req, res) => {
             identifier: game.gameID
         }));
 
-        // Save the keyword if it doesn't exist
-        await db.update(
-            'search_history_keyword',
-            { keyword },
-            { keyword }
-        );
+        // Save the keyword to search_history_keyword collection
+        await db.insert('search_history_keyword', { keyword });
 
         res.json(minimalResponse);
     } catch (error) {
