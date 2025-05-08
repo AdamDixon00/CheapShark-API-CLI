@@ -3,6 +3,8 @@ import dotenv from 'dotenv';
 import gameRoutes from './routes/games.js';
 import db from './services/db.js';
 
+import historyRouter from './routes/history.js';
+
 // Load environment variables
 dotenv.config();
 
@@ -17,6 +19,8 @@ app.use(express.json());
 
 // Routes
 app.use('/api/games', gameRoutes);
+
+app.use('/history', historyRouter);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
