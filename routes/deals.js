@@ -14,7 +14,7 @@ const router = express.Router();
 router.get('/', async (req, res) => {
     try{
         //destructure query from the request object
-        const { query} = req;
+        const { query } = req;
         //destructure remaining from query object 
         const { deal } = query;
 

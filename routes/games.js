@@ -1,5 +1,5 @@
 import express from 'express';
-import { searchByKeyword } from '../services/api.js';
+import { searchByKeyword, getGameInfoById } from '../services/api.js';
 import db from '../services/db.js';
 
 const router = express.Router(); 
@@ -34,6 +34,33 @@ router.get('/', async (req, res) => {
     } catch (error) {
         console.error('Error in games search:', error);
         res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+router.get('/gameById', async (req, res) => {
+    try {
+        const { gameId } = req.query;
+
+        if (!gameId) {
+            return res.status(400).json({ error: 'GameID parameter is required' });
+        }
+        // Search for games using the API
+        const game = await getGameInfoById(gameId);
+
+        // Transform the response to include only display and identifier
+        const minimalResponse = 
+        {
+            display: game.external,
+            identifier: game.gameID
+        }
+
+        // Save the keyword to search_history_keyword collection
+        await db.insert('search_history_keyword', { keyword });
+
+        res.json(minimalResponse);
+
+    } catch (err) {
+        res.status(500).json({ error: err });
     }
 });
 
