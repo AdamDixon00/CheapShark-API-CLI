@@ -1,5 +1,5 @@
 import express from 'express';
-import { searchByKeyword, getGameInfoById } from '../services/api.js';
+import { searchByKeyword, getGameInfoById, findStoreById } from '../services/api.js';
 import db from '../services/db.js';
 
 const router = express.Router(); 
@@ -37,30 +37,35 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/gameById', async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
-        const { gameId } = req.query;
+        const id = req.params.id;
 
-        if (!gameId) {
-            return res.status(400).json({ error: 'GameID parameter is required' });
+        const game = await getGameInfoById(id);
+
+        if (!id) {
+            return res.status(400).json({ error: 'Did not find game!' });
         }
-        // Search for games using the API
-        const game = await getGameInfoById(gameId);
 
-        // Transform the response to include only display and identifier
-        const minimalResponse = 
+        // More info on game
+        const store = await findStoreById(game.deals[0].storeID);
+        const storeName = store.storeName;
+        const response = 
         {
-            display: game.external,
-            identifier: game.gameID
+            name: game.info.title,
+            price: game.deals[0].price,
+            store: storeName,
+            dealId: game.deals[0].dealID
         }
 
         // Save the keyword to search_history_keyword collection
-        await db.insert('search_history_keyword', { keyword });
+        await db.insert('search_history_keyword', { id });
 
-        res.json(minimalResponse);
+        res.json(response);
 
-    } catch (err) {
-        res.status(500).json({ error: err });
+    } catch (error) {
+        console.error('Error in games search:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 });
 
