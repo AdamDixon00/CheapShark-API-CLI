@@ -39,7 +39,9 @@ router.get('/', async (req, res) => {
         return res.status(204).end(); // No content
       }
 
-      return res.json(cursor);
+      // Only return the keyword field from each document
+      const keywordList = cursor.map(doc => ({ keyword: doc.keyword }));
+      return res.json(keywordList);
     }
 
     res.status(204).end();
