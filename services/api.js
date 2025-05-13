@@ -44,12 +44,20 @@ export const findDeal = async (deal)=> {
  * @returns {Promise<Array>} A promise that resolves to a store object array.
  */
 
-export const getStores = async () => {
+export const findStoreById = async (storeId) => {
     try {
         const query = `${BASE_URL}/stores`;
         const response = await axios.get(query);
+        const stores = response.data;
+
+        for (const store of stores)
+        {
+            if (store.storeID === storeId)
+                return store;
+        }
         
-        return response.data;
+        console.error('Unable to find store: ', storeId);
+        return null;
     } catch (error) {
         console.error('Error searching for stores:', error.message);
         throw error;

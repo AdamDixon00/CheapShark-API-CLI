@@ -24,11 +24,19 @@ router.get('/', async (req, res) => {
         // Transform the response to include only display and identifier
         const minimalResponse = games.map(game => ({
             display: game.external,
-            cheapestDealID: game.cheapestDealID
+            identifier: game.gameID
         }));
 
         // Save the keyword to search_history_keyword collection
-        await db.insert('SearchHistoryKeyword', { keyword });
+        // Check if keyword already exists
+        const cursor = await db.find('SearchHistoryKeyword', { keyword });
+        const existing = await cursor.toArray();
+
+        if (existing.length === 0) {
+            await db.insert('SearchHistoryKeyword', { keyword, games });
+        } else {
+            console.log('Keyword already exists, skipping insert.');
+        }
 
         res.json(minimalResponse);
     } catch (error) {
@@ -41,42 +49,57 @@ router.get('/', async (req, res) => {
 /**
  * returns a game and its cheapest deal
  *
- * @api {GET} /game/:dealId
- * @apiParam {string} dealId
- *      the ID of a game's deal
+ * @api {GET} /game/:gameId
+ * @apiParam {string} gameId
+ *      the ID of a game
  * 
- * @apiExample localhost:8888/game/<dealId>
+ * @apiExample localhost:8888/game/<gameID>
  * 
  */
-router.get('/:dealId', async (req, res) => {
+router.get('/:gameId', async (req, res) => {
     try {
-        //destructure dealId from the request route parameters object
-        const { dealId } = req.params;
+        //destructure gameId from the request route parameters object
+        const { gameId } = req.params;
 
         //Validate the route parameter
-        if (!dealId) {
-            return res.status(400).json({ error: 'Missing required query parameter: dealId' });
+        if (!gameId) {
+            return res.status(400).json({ error: 'Missing required query parameter: gameId' });
         }
 
         //Search for game deal using the API
-        const gameDeal = await api.findDeal(dealId);
+        const game = await api.getGameInfoById(gameId);
 
         // Handle case where no deal is found
-        if (!gameDeal) {
+        if (!game) {
             return res.status(404).json({ error: 'Deal not found' });
         }
 
+        // find store for deal
+        const store = await api.findStoreById(game.deals[0].storeID);
+        const storeName = store.storeName;
+
         // format data to be sent to mongo database
-        const data = {
-            name : gameDeal.gameInfo.name,
-            cheapestPrice : gameDeal.cheapestPrice.price,
-            dealId : dealId            
-        };
+        const detailedResponse = 
+        {
+            name: game.info.title,
+            gameId: gameId,
+            price:game.deals[0].price,
+            store: storeName,
+            dealID: game.deals[0].dealID
+        }
 
-        // save the selected cheapest deal id of a game onto mongo database
-        db.insert('SearchHistorySelection', {data});
+        // Save the game to search_history_id collection
+        // Check if game already exists
+        const cursor = await db.find('SearchHistorySelection', { gameId } );
+        const existing = await cursor.toArray();
 
-        res.status(200).json({data});
+        if (existing.length === 0) {
+            await db.insert('SearchHistorySelection', { gameId, game });
+        } else {
+            console.log('ID already exists, skipping insert.');
+        }
+
+        res.json(detailedResponse);
     } catch (err) {
         console.error('Error in deal search:', err);
         res.status(500).json({ error: err });
