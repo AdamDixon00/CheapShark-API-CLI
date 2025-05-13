@@ -14,16 +14,34 @@ router.get('/', async (req, res) => {
 
   try {
     if (type === 'selections') {
+      // Fetch all selections from the database
       const selections = await db.find('SearchHistorySelection');
+      
+      // Convert the cursor to an array
+      const cursor = await selections.toArray();
 
-      // Remove MongoDB _id from each object before returning
-      const cleanSelections = selections.map(({ _id, ...rest }) => rest);
+      // Check if the cursor is empty
+      if (cursor.length === 0) {
+        return res.status(204).end(); // No content
+      }
 
-      return res.json(cleanSelections);
+      return res.json(cursor);
+    }
+    if (type === 'keywords') {
+      // Fetch all keywords from the database
+      const keywords = await db.find('SearchHistoryKeyword');
+
+      // Convert the cursor to an array
+      const cursor = await keywords.toArray();
+
+      // Check if the cursor is empty
+      if (cursor.length === 0) {
+        return res.status(204).end(); // No content
+      }
+
+      return res.json(cursor);
     }
 
-    // History Keywords: Optionally handle keywords if needed later 
-    // (currently is being worked on by Anthony)
     res.status(204).end();
 
   } catch (error) {
