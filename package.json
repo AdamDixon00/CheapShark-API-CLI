@@ -1,8 +1,8 @@
 {
     "name": "cheapshark-api-cli",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "type": "module",
-    "description": "A Node.js Command Line Interface (CLI) application (cli.js) that interacts with the CheapShark API and a file system-based database. The application's purpose is to allow a user to search and get the detailed information through the CLI, while utalizing a backend server that interacts with the cheapshark API by providing endpoints and is able to store search history and selection history in a MongoDB Cloud Atlas instance.",
+    "description": "A server app to interact with the Cheapshark API",
     "author": "Final Project Cheapshark API Team",
     "contributors": [
         {
@@ -25,13 +25,17 @@
         }
     ],
     "license": "MIT",
-    "main": "cli.js",
+    "main": "server.js",
     "scripts": {
+<<<<<<< Updated upstream
         "start": "node cli.js",
         "dev": "npx nodemon server.js"
     },
     "devDependencies": {
         "nodemon": "^3.1.10"
+=======
+        "dev": "npx nodemon server.js"
+>>>>>>> Stashed changes
     },
     "dependencies": {
         "@inquirer/prompts": "^7.4.0",

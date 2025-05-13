@@ -55,8 +55,13 @@ export const findStoreById = async (storeId) => {
             if (store.storeID === storeId)
                 return store;
         }
+<<<<<<< Updated upstream
 
         console.log('Unable to find store with storeID = ', storeId);
+=======
+        console.log('Unable to find store with ID: ', storeId);
+        
+>>>>>>> Stashed changes
         return null;
     } catch (error) {
         console.error('Error searching for stores:', error.message);
