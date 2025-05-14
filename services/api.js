@@ -22,24 +22,6 @@ export const searchByKeyword = async (keyword)=> {
 }
 
 /**
- * Fetches a list of games from the Cheapshark API based on the keyword given.
- * @param {string} deal - The deal to search for.
- * @returns {Promise<Object>} A promise that resolves to a deal objects.
- */
-
-export const findDeal = async (deal)=> {
-    try {
-        const query = `${BASE_URL}/deals?id=${deal}`;
-        const response = await axios.get(query);
-        
-        return response.data;
-    } catch (error) {
-        console.error('Error searching for deal:', error.message);
-        throw error;
-    }
-}
-
-/**
  * Fetches a list of stores from the Cheapshark API.
  * @returns {Promise<Array>} A promise that resolves to a store object array.
  */
