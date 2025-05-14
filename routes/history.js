@@ -25,8 +25,9 @@ router.get('/', async (req, res) => {
         return res.status(204).end(); // No content
       }
       const selectionsList = selections.map(doc => ({ 
+          gameId: doc.game.id,
           title: doc.game.info.title,
-          dealPrice: doc.game.deals[0].price
+          dealPrice: doc.game.deals[0].price,
         }));
 
       return res.json(selectionsList);
